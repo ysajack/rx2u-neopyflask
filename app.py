@@ -8,7 +8,7 @@ app = Flask(__name__)
 #app.secret_key = 'verytoplevelsecret'
 
 app.secret_key = os.urandom(24)
-port = float(os.environ.get('PORT', 5000))
+#port = int(os.environ.get('PORT', 5000))
 
 @app.route('/')
 def home():
@@ -195,5 +195,5 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
+    #app.run(host='0.0.0.0', port=port)

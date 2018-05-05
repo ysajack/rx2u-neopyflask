@@ -8,15 +8,17 @@ import os
 
 # set up authentication parameters
 #authenticate("localhost:7474", "neo4j", "neo4j")
+authenticate("127.0.0.1:7474", "neo4j", "neo4j")
 
 #graph = Graph("http://localhost:7474/db/data/")
+graph = Graph("http://127.0.0.1:7474/db/data/")
 
-url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
+#url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
 #username = os.environ.get('NEO4J_USERNAME')
 #password = os.environ.get('NEO4J_PASSWORD')
-authenticate(url, "neo4j", "neo4j")
+#authenticate(url, "neo4j", "neo4j")
 
-graph = Graph(url + '/db/data/', username=username, password=password)
+#graph = Graph(url + '/db/data/', username=username, password=password)
 
 class User:
     def placeorder(userinfo):
