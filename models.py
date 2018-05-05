@@ -12,8 +12,9 @@ import os
 #graph = Graph("http://localhost:7474/db/data/")
 
 url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
-username = os.environ.get('NEO4J_USERNAME')
-password = os.environ.get('NEO4J_PASSWORD')
+#username = os.environ.get('NEO4J_USERNAME')
+#password = os.environ.get('NEO4J_PASSWORD')
+authenticate(url, "neo4j", "neo4j")
 
 graph = Graph(url + '/db/data/', username=username, password=password)
 
