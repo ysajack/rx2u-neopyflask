@@ -8,7 +8,7 @@ app = Flask(__name__)
 #app.secret_key = 'verytoplevelsecret'
 
 app.secret_key = os.urandom(24)
-port = int(os.environ.get('PORT', 5000))
+port = float(os.environ.get('PORT', 5000))
 
 @app.route('/')
 def home():
