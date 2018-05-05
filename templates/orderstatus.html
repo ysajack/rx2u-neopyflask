@@ -1,0 +1,94 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<title>Order Status</title>
+<div id="header-wrapper">
+  <div id="header" class="container">
+
+    <div class="rxlogo">
+        <img src="../static/images/rx2ulogo.png" style="width: 130px; height: 85px;">
+    </div>
+    <div id="logo">
+      <strong style="font-family: 'Comic Sans MS'; color: #ED7070;;font-weight: bolder; font-size: 45px"> Rx2U </strong><br>
+    </div>
+
+    <div id="menu">
+      <ul>
+        {% if 'username' in session %}
+        <li><a href="{{url_for('user')}}">Home</a></li>
+        {% else %}
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        {% endif %}
+        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="banner-wrapper">
+  <div id="banner" class="container">
+    <i style="font-weight: normal; font-size: large; font-family: fantasy">Prescriptions on wheels conveniently to you</i><br><br>
+  </div>
+</div>
+
+<div id="wrapper">
+  {% if 'username' in session %}
+  <p style="color: blue">Welcome {{session["username"]}}! <a href="{{url_for('home')}}">Logout</a></p>
+  {% endif %}
+  <div id="featured-wrapper">
+    <div class="extra2 margin-btm container">
+
+      <div class="ebox2">
+        <div class="title">
+          <h2>Order Status:</h2>
+        </div>
+        <fieldset>
+          <div class="stat">
+            <table>
+              <tr>
+                <th>
+                  Order
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                  Message
+                </th>
+              </tr>
+            </tr {% for row in orderinfo %}>
+              <td>
+                {{row["orderNum"].upper()}}
+              </td>
+              <td>
+                {{row["status"]}}
+              </td>
+              <td>
+                {{row["message"]}}
+              </td>
+            </tr {% endfor %}>
+            </table>
+
+          </div>
+          <a href="{{url_for('home')}}"><input class="button" type="button" value="Close"></input></a>
+        </fieldset>
+
+        <div style="text-align: left">
+          <form action="{{url_for('lookuporder')}}" method="post">
+            Enter order number: <br>
+            <input name="orderNum"><br>
+            <button class="button" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div >
+  </div>
+</div>
+
+<div id="copyright" class="container">
+  <p>&copy; Untitled. All rights reserved. | Photos by <a href="https://images.google.com/">GoogleImage</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+
+{% endblock %}

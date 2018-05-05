@@ -1,0 +1,102 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<!--The content below is only a placeholder and can be replaced.-->
+<title>Rx Pickup</title>
+<div id="header-wrapper">
+  <div id="header" class="container">
+
+    <div class="rxlogo">
+      <img src="../static/images/rx2ulogo.png" style="width: 130px; height: 85px;">
+    </div>
+    <div id="logo">
+      <strong style="font-family: 'Comic Sans MS'; color: #ED7070;;font-weight: bolder; font-size: 45px"> Rx2U </strong><br>
+    </div>
+
+    <div id="menu">
+      <ul>
+        {% if 'username' in session %}
+        <li><a href="{{url_for('user')}}">Home</a></li>
+        {% else %}
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        {% endif %}
+        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div id="banner-wrapper">
+  <div id="banner" class="container">
+    <i style="font-weight: normal; font-size: large; font-family: fantasy">Prescriptions on wheels conveniently to you</i><br><br>
+  </div>
+</div>
+
+<div id="wrapper">
+{% if 'username' in session %}
+<p style="color: blue">Welcome {{session["username"]}}! <a href="{{url_for('home')}}">Logout</a></p>
+{% endif %}
+
+  <br>
+  <!--Breadscrumbs-->
+  <div style="padding-left: 80px; color: blue" id="breadscrumbs">
+    {% if 'username' in session %}
+    <a href="{{url_for('user')}}" style="color: blue">Home</a> >>
+    {% else %}
+    <a href="{{url_for('home')}}" style="color: blue">Home</a> >>
+    {% endif %}
+    <a href="{{url_for('requestpickup')}}" style="color: blue"> Request Rx Pickup </a> >>
+  </div>
+  <!--Left component-->
+  <div id="featured-wrapper">
+    <div class="extra2 margin-btm container">
+      <div class="ebox1">
+        <div class="title">
+          <h2>Please enter the following information:</h2>
+        </div>
+
+        <!--place order form section-->
+        <fieldset>
+          <form action="{{url_for('placeorder')}}" method="post">
+            First Name: <br>
+
+            <input type="text" name="first" value="{{userinfo[0][0]["first"]}}" required><br>
+            Last Name: <br>
+            <input type="text" name="last" value="{{userinfo[0][0]["last"]}}" required>  <br>
+            Phone Number: <br>
+            <input type="text" name="phone" value="{{userinfo[0][0]["phone"]}}" required>
+            <br>
+            Date of Birth: <br>
+            <input type="date" name="dob" value="{{userinfo[0][0]["dob"]}}" required >
+
+            <br>
+            Rx to pick up (optional): <br>
+            <input type="text" name="rx" id="rx" value="{{userinfo[0][0]["rx"]}}"> <br>
+            Full Delivery Address: <br>
+            <textarea rows="3" cols="30" name="address" required>{{userinfo[0][0]["address"]}}</textarea><br>
+            Full Pharmacy Address: <br>
+            <textarea rows="3" cols="30" name="pharmacy" required>{{userinfo[0][0]["address"]}}</textarea><br><br>
+
+            <input type="submit" class="button" value="Continue">
+            {% if 'username' in session %}
+            <a href="{{url_for('user')}}"><input type="button" class="button" value="Cancel"></input></a>
+            {% else %}
+            <a href="{{url_for('home')}}"><input type="button" class="button" value="Cancel"></input></a>
+            {% endif %}
+
+          </form>
+        </fieldset>
+
+      </div>
+    </div >
+  </div>
+</div>
+
+<div id="copyright" class="container">
+  <p>&copy; Untitled. All rights reserved. | Photos by <a href="https://images.google.com/">GoogleImage</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+
+{% endblock %}

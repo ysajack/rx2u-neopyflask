@@ -1,0 +1,80 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<!--The content below is only a placeholder and can be replaced.-->
+<title>Register</title>
+<div id="header-wrapper">
+  <div id="header" class="container">
+
+    <div class="rxlogo">
+      <img src="../static/images/rx2ulogo.png" style="width: 130px; height: 85px;">
+    </div>
+    <div id="logo">
+      <strong style="font-family: 'Comic Sans MS'; color: #ED7070;;font-weight: bolder; font-size: 45px"> Rx2U </strong><br>
+    </div>
+
+    <div id="menu">
+      <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div id="banner-wrapper">
+  <div id="banner" class="container">
+    <i style="font-weight: normal; font-size: large; font-family: fantasy">Prescriptions on wheels conveniently to you</i><br><br>
+  </div>
+</div>
+
+<div id="wrapper">
+  <br>
+  <!--Breadscrumbs-->
+  <div style="padding-left: 80px; color: blue" id="breadscrumbs">
+    <a href="{{url_for('home')}}" style="color: blue"> Home </a> >>
+    <a href="{{url_for('login')}}" style="color: blue">Login</a> >>
+  </div>
+  <!--Left component-->
+  <div id="featured-wrapper">
+    <div class="extra2 margin-btm container">
+      <div class="ebox1">
+        <div class="title">
+          <h2>Please enter the following information:</h2>
+        </div>
+
+        <!--Flash messages from app.py-->
+        {% with messages = get_flashed_messages() %}
+         {% if messages %}
+               {% for message in messages %}
+               <p style="color: red">{{ message }}</p>
+               {% endfor %}
+         {% endif %}
+        {% endwith %}
+
+        <!--place order form section-->
+        <fieldset>
+          <form action="{{url_for('login')}}" method="post" >
+            Username: <br>
+            <input type="text" name="username" value="" required><br>
+            Password: <br>
+            <input type="text" name="password" value="" required>  <br>
+
+            <input type="submit" class="button" value="Login">
+            <a href="{{url_for('home')}}"><input type="button" class="button" value="Cancel"></input></a>
+          </form>
+        </fieldset>
+
+      </div>
+    </div >
+  </div>
+</div>
+
+<div id="copyright" class="container">
+  <p>&copy; Untitled. All rights reserved. | Photos by <a href="https://images.google.com/">GoogleImage</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+
+{% endblock %}

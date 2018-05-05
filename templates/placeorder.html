@@ -1,0 +1,125 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<!--The content below is only a placeholder and can be replaced.-->
+<title>Rx Pickup</title>
+<div id="header-wrapper">
+  <div id="header" class="container">
+
+    <div class="rxlogo">
+      <img src="../static/images/rx2ulogo.png" style="width: 130px; height: 85px;">
+    </div>
+    <div id="logo">
+      <strong style="font-family: 'Comic Sans MS'; color: #ED7070;;font-weight: bolder; font-size: 45px"> Rx2U </strong><br>
+    </div>
+
+    <div id="menu">
+      <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="banner-wrapper">
+  <div id="banner" class="container">
+    <i style="font-weight: normal; font-size: large; font-family: fantasy">Prescriptions on wheels conveniently to you</i><br><br>
+  </div>
+</div>
+
+<div id="wrapper">
+  {% if 'username' in session %}
+  <p style="color: blue">Welcome {{session["username"]}}! <a href="{{url_for('home')}}">Logout</a></p>
+  {% endif %}
+  <br>
+  <!--Breadscrumbs-->
+  <div style="padding-left: 80px">
+    {% if 'username' in session %}
+    <a href="{{url_for('user')}}" style="color: blue">Home</a> >>
+    {% else %}
+    <a href="{{url_for('home')}}" style="color: blue">Home</a> >>
+    {% endif %}
+    <a href="{{url_for('requestpickup')}}" style="color: blue"> Request Rx Pickup </a> >>
+    <a href="{{url_for('placeorder')}}"> Place Order </a>
+  </div>
+  <div id="featured-wrapper">
+    <div class="extra2 margin-btm container">
+      <div class="ebox1" >
+        <div class="title">
+          <h2>Please enter the following information:</h2>
+        </div>
+
+        <!--place order form section-->
+       <fieldset>
+         <form action="{{url_for('orderinfo')}}" method="post">
+           First Name: <br>
+           {% if userinfo is mapping %}
+           <input name="first" value="{{userinfo.first}}"> <br>
+           {% else %}
+           <input name="first" value="{{userinfo[0][0]["first"]}}"> <br>
+           {% endif %}
+           Last Name: <br>
+           {% if userinfo is mapping %}
+           <input name="last" value="{{userinfo.last}}"> <br>
+           {% else %}
+           <input name="last" value="{{userinfo[0][0]["last"]}}"> <br>
+           {% endif %}
+           Phone Number: <br>
+           {% if userinfo is mapping %}
+           <input name="phone" value="{{userinfo.phone}}"> <br>
+           {% else %}
+           <input name="phone" value="{{userinfo[0][0]["phone"]}}"> <br>
+           {% endif %}
+           Date of Birth: <br>
+           {% if userinfo is mapping %}
+           <input type="date" name="dob" value="{{userinfo.dob}}"> <br>
+           {% else %}
+           <input type="date" name="dob" value="{{userinfo[0][0]["dob"]}}"> <br>
+           {% endif %}
+           Rx to pick up (optional): <br>
+           {% if userinfo is mapping %}
+           <input name="rx" value="{{userinfo.rx}}"> <br>
+           {% else %}
+           <input name="rx" value="{{userinfo[0][0]["rx"]}}"> <br>
+           {% endif %}
+           Full Delivery Address: <br>
+           {% if userinfo is mapping %}
+           <textarea rows="3" cols="30" name="address">{{userinfo.address}}</textarea><br>
+           {% else %}
+           <textarea rows="3" cols="30" name="address">{{userinfo[0][0]["address"]}}</textarea><br>
+           {% endif %}
+           Full Pharmacy Address: <br>
+           {% if userinfo is mapping %}
+           <textarea rows="3" cols="30" name="pharmacy">{{userinfo.pharmacy}}</textarea><br><br>
+           {% else %}
+           <textarea rows="3" cols="30" name="pharmacy">{{userinfo[0][0]["pharmacy"]}}</textarea><br><br>
+           {% endif %}
+           <fieldset >
+             {% if userinfo is mapping %}
+             <legend><strong>Proxy Agreement:</strong></legend>
+             I, <output >{{userinfo.first}} {{userinfo.last}} {% else %} {{userinfo[0][0]["first"]}} {{userinfo[0][0]["last"]}} {% endif %}</output><br>
+             hereby agree to provide proxy to RX2U and its 3rd transportation parties
+             to provide pickup and delivery services to me.
+             <br><br>
+
+             <input type="checkbox" required> Agree</input>
+             <br><br>
+           </fieldset>
+
+         <input class="button" type="submit">
+         <a href="{{url_for('requestpickup')}}"><input type="button" class="button" value="Cancel"></input></a>
+         </form>
+       </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="copyright" class="container">
+  <p>&copy; Untitled. All rights reserved. | Photos by <a href="https://images.google.com/">GoogleImage</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+
+{% endblock %}

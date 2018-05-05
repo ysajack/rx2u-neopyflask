@@ -1,0 +1,99 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<title>Order Status</title>
+<div id="header-wrapper">
+  <div id="header" class="container">
+
+    <div class="rxlogo">
+        <img src="../static/images/rx2ulogo.png" style="width: 130px; height: 85px;">
+    </div>
+    <div id="logo">
+      <strong style="font-family: 'Comic Sans MS'; color: #ED7070;;font-weight: bolder; font-size: 45px"> Rx2U </strong><br>
+    </div>
+
+    <div id="menu">
+      <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="banner-wrapper">
+  <div id="banner" class="container">
+    <i style="font-weight: normal; font-size: large; font-family: fantasy">Prescriptions on wheels conveniently to you</i><br><br>
+  </div>
+</div>
+
+<div id="wrapper">
+  <div id="featured-wrapper">
+    <div class="extra2 margin-btm container">
+
+      <div class="ebox3"style="width: 900px; padding-left: 100px" >
+        <div class="title">
+          <h2 style="padding-left: 90px">Pharmacy Backend Dashboard</h2>
+        </div>
+        <fieldset>
+          <div class="stat" style="padding-left: 30px">
+            <table >
+              <tr >
+                <th style="width: 100px">
+                  Date
+                </th>
+                <th>
+                  Order
+                </th>
+                <th>
+                  First
+                </th>
+                <th>
+                  Last
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                  Action
+                </th>
+              </tr>
+            </tr {% for row in orderinfo %}>
+              <td style="width:40px">
+                {{row["order"]["date"]}}
+              </td>
+              <form action="{{url_for('fillorder')}}" method="post">
+              <td>
+                <input style="border: none; width:60px" name="orderNum" value="{{row["order"]["orderNum"].upper()}}">
+              </td>
+              <td>
+                {{row["user"]["first"]}}
+              </td>
+              <td>
+                {{row["user"]["last"]}}
+              </td>
+              <td>
+                {{row["order"]["status"]}}
+              </td>
+              <td {% if row["order"]["status"] != 'New' %}>
+                <input type="submit" value="Complete" disabled {% else %}>
+                <input type="submit" value="Complete">
+              </td {% endif %}>
+            </form>
+            </tr {% endfor %}>
+            </table>
+          </div>
+
+        </fieldset>
+      </div>
+    </div >
+  </div>
+</div>
+
+<div id="copyright" class="container">
+  <p>&copy; Untitled. All rights reserved. | Photos by <a href="https://images.google.com/">GoogleImage</a> | Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
+</div>
+
+{% endblock %}
