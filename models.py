@@ -4,11 +4,18 @@ from datetime import datetime
 #from json import dumps
 import json
 from flask import session
+import os
 
 # set up authentication parameters
-authenticate("localhost:7474", "neo4j", "neo4j")
+#authenticate("localhost:7474", "neo4j", "neo4j")
 
-graph = Graph("http://localhost:7474/db/data/")
+#graph = Graph("http://localhost:7474/db/data/")
+
+url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
+username = os.environ.get('NEO4J_USERNAME')
+password = os.environ.get('NEO4J_PASSWORD')
+
+graph = Graph(url + '/db/data/', username=username, password=password)
 
 class User:
     def placeorder(userinfo):

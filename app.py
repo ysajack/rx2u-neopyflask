@@ -2,9 +2,13 @@ from flask import Flask, render_template, url_for, request, redirect, session, f
 from models import User, Pharmacy, Uber
 import sys
 import json
+import os
 
 app = Flask(__name__)
-app.secret_key = 'verytoplevelsecret'
+#app.secret_key = 'verytoplevelsecret'
+
+app.secret_key = os.urandom(24)
+port = int(os.environ.get('PORT', 5000))
 
 @app.route('/')
 def home():
@@ -191,4 +195,5 @@ def about():
     return render_template('about.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host='0.0.0.0', port=port)
