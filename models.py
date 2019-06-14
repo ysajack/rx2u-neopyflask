@@ -1,4 +1,4 @@
-from py2neo import Graph, Node, Relationship, authenticate
+from py2neo import Graph, Node, Relationship #, authenticate #depreciated in v4
 import uuid
 from datetime import datetime
 #from json import dumps
@@ -8,17 +8,13 @@ import os
 
 # set up authentication parameters
 #authenticate("localhost:7474", "neo4j", "neo4j")
-authenticate("127.0.0.1:7474", "neo4j", "neo4j")
-
 #graph = Graph("http://localhost:7474/db/data/")
-graph = Graph("http://127.0.0.1:7474/db/data/")
 
-#url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
-#username = os.environ.get('NEO4J_USERNAME')
-#password = os.environ.get('NEO4J_PASSWORD')
-#authenticate(url, "neo4j", "neo4j")
+#authenticate("127.0.0.1:7474", "neo4j", "neo4j") #Local neo4j
+#graph = Graph("http://127.0.0.1:7474/db/data/") #Local neo4j
 
-#graph = Graph(url + '/db/data/', username=username, password=password)
+#Access to Google Compute Engine hosting neo4j
+graph = Graph("bolt://34.83.30.187:7687", auth=("neo4j","rx2u-neo4j"), bolt=True, secure = True, http_port = 24789, https_port = 24780)
 
 class User:
     def placeorder(userinfo):
@@ -155,7 +151,9 @@ class User:
         return graph.run(query, orderNum=orderNum, phone=phone)
 
     def find(username):
-        user = graph.find_one("User", "username", username)
+        #depreciated in py2neo v4
+        #user = graph.find_one("User", "username", username)
+        user = graph.nodes.match("User", username=username).first()
         return user
 
     def register(userinfo):
@@ -200,7 +198,7 @@ class Pharmacy:
         MATCH (order:Order), (pharmacy:Pharmacy)
         WHERE order.orderNum ={orderNum} and pharmacy.name='Pharmacy1'
         SET order.status = 'Ready'
-        SET order.message = 'Requesting ride'
+        SET order.message = 'Requesting Uber'
         CREATE (pharmacy)-[:COMPLETED]->(order)
         """
         return graph.run(query, orderNum=orderNum)
@@ -239,7 +237,7 @@ class Uber:
         MATCH (order:Order), (uber:Uber)
         WHERE order.orderNum ={orderNum} and uber.name='Uber1'
         SET order.status = 'Enrouted'
-        SET order.message = 'Ride starts'
+        SET order.message = 'Uber Ride starts'
         CREATE (uber)-[:STARTED]->(order)
         """
         return graph.run(query, orderNum=orderNum)
