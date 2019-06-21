@@ -19,8 +19,8 @@
         {% else %}
         <li><a href="{{url_for('home')}}">Home</a></li>
         {% endif %}
-        <li><a href="{{url_for('requestpickup')}}">Request Rx Pickup</a></li>
-        <li><a href="{{url_for('orderstatus')}}">Check Order Status</a></li>
+        <li><a href="{{url_for('requestpickup')}}">Rx Pickup</a></li>
+        <li><a href="{{url_for('orderstatus')}}">Order Status</a></li>
         <li><a routerLink="/about" >About</a></li>
       </ul>
     </div>
@@ -42,13 +42,13 @@
     <div class="extra2 margin-btm container">
 
       <div style="text-align: left; padding-left: 100px">
-        <h2>This site is built on:</h2> <br>
+        <h2>This app is built in:</h2> <br>
         <ul class="list">
           <li>
-            Python/Flask framework
+            Python/Flask framework, and app hosted in Heroku
           </li>
           <li>
-            Neo4j Graph Database
+            Neo4j Graph Database hosted in Google Compute Engine
           </li>
           <li>
             Cypher Query Language (CQL)
@@ -61,20 +61,14 @@
             Single Page App (SPA)
           </li>
           <li>
-            Py2neo
+            Flask project structure, MVC
           </li>
           <li>
-            Flask project structure and MVC
+            Py2neo connecting to Neo4J database
           </li>
           <li>
         Google Compute Engine (Neo4j cloud host) and Neo4j Desktop (local for dev)
         </li>
-        <li>
-        Heroku hosting Python Flask app
-        </li>
-          <li>
-            Template/theme HTML, CSS designed by Templated
-          </li>
         </ul>
 
         <h3>Application:</h3> <br>
