@@ -6,15 +6,12 @@ import json
 from flask import session
 import os
 
-# set up authentication parameters
-#authenticate("localhost:7474", "neo4j", "neo4j")
-#graph = Graph("http://localhost:7474/db/data/")
+# Access locally
+#authenticate("localhost:your_port", "your_usr", "your_pw")
+#graph = Graph("http://localhost:your_port/db/your_db/")
 
-#authenticate("127.0.0.1:7474", "neo4j", "neo4j") #Local neo4j
-#graph = Graph("http://127.0.0.1:7474/db/data/") #Local neo4j
-
-#Access to Google Compute Engine hosting neo4j
-graph = Graph("bolt://34.83.30.187:7687", auth=("neo4j","rx2u-neo4j"), bolt=True, secure = True, http_port = 24789, https_port = 24780)
+#Access to Cloud
+graph = Graph("bolt://your_cloud_ip_or_url", auth=("your_usr","your_pw"), bolt=True, secure = True, http_port = 24789, https_port = 24780)
 
 class User:
     def placeorder(userinfo):
