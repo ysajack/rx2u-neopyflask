@@ -7,7 +7,7 @@ decorator==4.3.0
 Flask==0.12.2
 gunicorn==19.8.1
 idna==2.6
-ipython==6.3.1
+ipython==7.16.3
 ipython-cypher==0.2.6
 ipython-genutils==0.2.0
 itsdangerous==0.24
